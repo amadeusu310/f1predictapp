@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import type { GetServerSidePropsContext } from "next";
 
 const DRIVERS = [
 	{
@@ -20,6 +21,14 @@ const DRIVERS = [
 	},
 	// ...他のドライバーも同様に追加...
 ];
+
+// 型定義をNext.jsのPagePropsに合わせて修正
+export async function generateStaticParams() {
+	return DRIVERS.map((driver) => ({ id: driver.id }));
+}
+
+// Next.js App Routerの動的ルートでbuildエラーを防ぐため、export const dynamic = "force-static" を追加
+export const dynamic = "force-static";
 
 export default function DriverDetail({ params }: { params: { id: string } }) {
 	const driver = DRIVERS.find((d) => d.id === params.id);
