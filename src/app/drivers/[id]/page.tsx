@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import type { GetServerSidePropsContext } from "next";
 
 const DRIVERS = [
 	{
