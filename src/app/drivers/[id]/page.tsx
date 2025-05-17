@@ -29,9 +29,14 @@ export async function generateStaticParams() {
 // Next.js App Routerの動的ルートでbuildエラーを防ぐため、export const dynamic = "force-static" を追加
 export const dynamic = "force-static";
 
-// 型エラー回避のため、props型を{ params: { id: string } } | { params: any }にする
-export default function DriverDetail(props: { params: { id: string } } | { params: any }) {
-	const { params } = props as { params: { id: string } };
+// 型エラー回避のためanyを使わず型を明示
+interface DriverDetailProps {
+	params: {
+		id: string;
+	};
+}
+
+export default function DriverDetail({ params }: DriverDetailProps) {
 	const driver = DRIVERS.find((d) => d.id === params.id);
 	if (!driver) return notFound();
 	return (
