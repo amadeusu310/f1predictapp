@@ -29,8 +29,10 @@ export async function generateStaticParams(): Promise<{ id: string }[]> {
 // Next.js App Routerの動的ルートでbuildエラーを防ぐため、export const dynamic = "force-static" を追加
 export const dynamic = "force-static";
 
-export default function DriverDetail({ params }: { params: { id: string } }) {
-	const driver = DRIVERS.find((d) => d.id === params.id);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default function DriverDetail(props: any) {
+	const params = props?.params as { id: string };
+	const driver = DRIVERS.find((d) => d.id === params?.id);
 	if (!driver) return notFound();
 	return (
 		<main className="flex flex-col items-center min-h-screen bg-black text-white p-4 sm:p-8 pt-16 sm:pt-24">
