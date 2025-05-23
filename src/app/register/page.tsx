@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { supabase } from "@/lib/supabaseClient"; // 既存のsupabaseClientを利用
 
 export default function Register() {
   const [email, setEmail] = useState("");
@@ -10,7 +11,7 @@ export default function Register() {
   const [success, setSuccess] = useState("");
   const router = useRouter();
 
-  const handleRegister = (e: React.FormEvent) => {
+  const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     setSuccess("");
@@ -22,15 +23,14 @@ export default function Register() {
       setError("パスワードが一致しません");
       return;
     }
-    // 仮実装: ローカルストレージに保存
-    const users = JSON.parse(localStorage.getItem("users") || "[]");
-    if ((users as {email: string, password: string}[]).find((u) => u.email === email)) {
-      setError("このメールアドレスは既に登録されています");
+
+    // Supabase Authでサインアップ
+    const { error } = await supabase.auth.signUp({ email, password });
+    if (error) {
+      setError(error.message);
       return;
     }
-    users.push({ email, password });
-    localStorage.setItem("users", JSON.stringify(users));
-    setSuccess("登録が完了しました。ログインしてください。");
+    setSuccess("登録が完了しました。メール認証を確認してください。");
     setTimeout(() => router.push("/login"), 1500);
   };
 

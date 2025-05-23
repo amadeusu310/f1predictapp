@@ -17,17 +17,24 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja">
+      <head>
+        
+      </head>
       <body className={`${inter.className} bg-black text-white min-h-screen`}>
-        <header className="w-full max-w-2xl mx-auto flex justify-between items-center py-6 px-4 sm:px-0 fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur border-b border-gray-800">
-          <Link href="/" className="text-xl font-bold hover:underline">F1優勝予想</Link>
-          <nav className="flex gap-4">
-            <Link href="/predict" className="hover:underline">予想</Link>
-            <Link href="/account" className="hover:underline">アカウント</Link>
-            <Link href="/login" className="hover:underline">ログイン</Link>
-            <Link href="/register" className="hover:underline">新規登録</Link>
-          </nav>
+        <header className="w-full fixed top-0 left-0 right-0 z-50 bg-black border-b-4 border-red-600 shadow">
+          <div className="max-w-5xl mx-auto flex justify-between items-center py-3 px-4 sm:px-8">
+            <Link href="/" className="text-2xl font-black text-white tracking-tight flex items-center gap-2">
+              <span className="text-red-600 font-black">F1</span>
+              <span className="font-black">優勝予想</span>
+            </Link>
+            <nav className="flex gap-4 text-base font-bold">
+              <Link href="/predict" className="hover:text-red-500 transition text-white">予想</Link>
+              <Link href="/login" className="hover:text-red-500 transition text-white">ログイン</Link>
+              <Link href="/register" className="hover:text-red-500 transition text-white">新規登録</Link>
+            </nav>
+          </div>
         </header>
-        <div className="pt-24">{children}</div>
+        <div className="pt-20">{children}</div>
       </body>
     </html>
   );
