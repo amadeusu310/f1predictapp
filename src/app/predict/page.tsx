@@ -3,6 +3,16 @@
 import Image from "next/image";
 import { useState } from "react";
 
+// 追加: Driver型の定義
+type Driver = {
+  id: string;
+  name: string;
+  img?: string;
+  description: string;
+  team: string;
+  country: string;
+};
+
 const DRIVERS: Driver[] = [
   {
     id: "1",
